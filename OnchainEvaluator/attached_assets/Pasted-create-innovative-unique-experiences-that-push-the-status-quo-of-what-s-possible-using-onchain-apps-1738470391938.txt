@@ -1,0 +1,82 @@
+create innovative, unique experiences that push the status quo of what’s possible using onchain apps.
+
+​🥇 Evaluation Criteria
+
+​Onchain: Built on Base
+
+​Technicality: Functions as pitched
+
+​Originality: Innovation/originality to solve problems
+
+​Practicality: Usable and accessible by anyone
+
+​Wow Factor: Primarily measured on how well it performs its utility and intended purpose
+
+create:
+
+DeFi Risk Sniffer
+What: A chat agent that scans Base DeFi protocols for risks via natural language queries.
+How:
+
+Users ask, "Is ProtocolX safe?"
+
+AI checks onchain data (TVL, audits, liquidity) + social sentiment
+
+Returns simple risk score (🟢/🟡/🔴) with key metrics
+Why: Helps new users avoid rug pulls quickly.
+Core Tech: DeFi Llama API, AI summary model (e.g., GPT-3.5-turbo), Base Sepolia testnet.
+
+DE
+
+deletezajac
+Assistant
+just now
+I can help you create the "DeFi Risk Sniffer" concept on Replit. Here's a basic structure to get you started:
+
+import os
+import requests
+from dotenv import load_dotenv
+from langchain import OpenAI,  LLMChain
+from langchain.prompts import PromptTemplate
+# Load environment variables
+load_dotenv()
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+# Set up OpenAI LLM
+llm = OpenAI(temperature=0.7, openai_api_key=OPENAI_API_KEY)
+# Define prompt template
+prompt_template = PromptTemplate(
+    input_variables=["protocol_name"],
+    template="""Is {protocol_name} a safe DeFi protocol? Consider factors like TVL, audits, liquidity, and social sentiment to provide a simple risk score (🟢/🟡/🔴) with key metrics.""",
+)
+# Create LLMChain
+chain = LLMChain(llm=llm, prompt=prompt_template)
+# Function to get DeFi Llama data (replace with actual API calls)
+def get_defi_llama_data(protocol_name):
+  # TODO: Replace with actual DeFi Llama API call
+  return {"tvl": 1000000, "audit_status": "Audited", "liquidity": "High"}
+# Function to assess risk based on LLM response
+def assess_risk(response):
+  # TODO: Implement logic to extract risk score and metrics from response
+  if "🟢" in response:
+    return "🟢 - Low Risk"
+  elif "🟡" in response:
+    return "🟡 - Medium Risk"
+  else:
+    return "🔴 - High Risk"
+# Main function
+def main():
+  protocol_name = input("Enter the DeFi protocol name: ")
+  
+  # Get DeFi Llama data
+  data = get_defi_llama_data(protocol_name)
+  # Generate LLM response
+  response = chain.run(protocol_name=protocol_name)
+  # Assess risk
+  risk_score = assess_risk(response)
+  # Print results
+  print(f"Risk Score: {risk_score}")
+  print(f"TVL: {data['tvl']}")
+  print(f"Audit Status: {data['audit_status']}")
+  print(f"Liquidity: {data['liquidity']}")
+if __name__ == "__main__":
+  main()
